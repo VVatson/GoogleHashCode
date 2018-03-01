@@ -14,6 +14,9 @@ public class Simulation {
     Dispatcher dispatcher;
 
     public Simulation(Integer numVehicles, Integer numSteps, List<Drive> drivesToServe) {
+
+        dispatcher = new DefaultDispatcher(drivesToServe);
+
         for (int i = 0; i < numVehicles; i++) {
             vehicles.add(new VehicleState(dispatcher));
         }
@@ -24,5 +27,9 @@ public class Simulation {
         for (int i = 0; i < numSteps; i++) {
             vehicles.forEach(VehicleState::move);
         }
+    }
+
+    public static Integer getCurrentStep() {
+        return null;
     }
 }
