@@ -14,12 +14,16 @@ public class VehicleState {
 
     Pair<Integer, Integer> curDst;
     Integer distToCurDst;
-    List<Drive> drivesToServe = new ArrayList<>();
     List<Drive> completedDrives = new ArrayList<>();
     private Drive curDrive;
+    private Dispatcher dispatcher;
+    private Drive nextDrive;
 
-    public VehicleState() {
-
+    public VehicleState(Dispatcher dispatcher) {
+        this.dispatcher = dispatcher;
+        distToCurDst = 1;
+        curDst = STARTING_POINT;
+        nextDrive = dispatcher.getNewRide(this);
     }
 
     public static Pair<Integer, Integer> getStartingPoint() {
@@ -34,24 +38,12 @@ public class VehicleState {
         return distToCurDst;
     }
 
-    public List<Drive> getDrivesToServe() {
-        return drivesToServe;
-    }
-
     public List<Drive> getCompletedDrives() {
         return completedDrives;
     }
 
     public Drive getCurDrive() {
         return curDrive;
-    }
-
-    void addDrive(Drive drive) {
-        if (drivesToServe.isEmpty()) {
-            curDst = drive.getSrc();
-            distToCurDst = Distance.calculate(STARTING_POINT, curDst);
-        }
-        drivesToServe.add(drive);
     }
 
     void move() {
@@ -61,12 +53,14 @@ public class VehicleState {
             Pair<Integer, Integer> curPos = curDst;
 
             if (curDrive == null) {
-                curDrive = drivesToServe.remove(0);
+                curDrive = nextDrive;
                 curDst = curDrive.getDst();
                 distToCurDst = Distance.calculate(curPos, curDst);
             } else {
                 completedDrives.add(curDrive);
-                curDst = drivesToServe.get(0).getSrc();
+                curDrive = null;
+                nextDrive = dispatcher.getNewRide(this);
+                curDst = nextDrive.getSrc();
                 distToCurDst = Distance.calculate(curPos, curDst);
             }
         }

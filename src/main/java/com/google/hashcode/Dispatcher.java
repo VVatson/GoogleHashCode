@@ -1,16 +1,9 @@
 package com.google.hashcode;
 
-import com.google.hashcode.data.InputData;
-import com.google.hashcode.data.OutputData;
+/**
+ * Created by Andrey on 01.03.2018.
+ */
+public interface Dispatcher {
 
-public class Dispatcher {
-    final InputData inputData;
-
-    public Dispatcher(InputData inputData) {
-        this.inputData = inputData;
-    }
-
-    public OutputData calculate() {
-        return new OutputData();
-    }
+    Drive getNewRide(VehicleState vehicleState);
 }
