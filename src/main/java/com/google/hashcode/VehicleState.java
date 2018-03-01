@@ -22,6 +22,30 @@ public class VehicleState {
 
     }
 
+    public static Pair<Integer, Integer> getStartingPoint() {
+        return STARTING_POINT;
+    }
+
+    public Pair<Integer, Integer> getCurDst() {
+        return curDst;
+    }
+
+    public Integer getDistToCurDst() {
+        return distToCurDst;
+    }
+
+    public List<Drive> getDrivesToServe() {
+        return drivesToServe;
+    }
+
+    public List<Drive> getCompletedDrives() {
+        return completedDrives;
+    }
+
+    public Drive getCurDrive() {
+        return curDrive;
+    }
+
     void addDrive(Drive drive) {
         if (drivesToServe.isEmpty()) {
             curDst = drive.getSrc();
