@@ -1,4 +1,4 @@
-package com.google.hashcode;
+package com.google.hashcode.data;
 
 import java.util.Arrays;
 import java.util.List;
