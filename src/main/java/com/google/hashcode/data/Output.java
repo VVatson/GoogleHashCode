@@ -3,9 +3,7 @@ package com.google.hashcode.data;
 import com.google.hashcode.Drive;
 import com.google.hashcode.VehicleState;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Andrey on 01.03.2018.
@@ -26,12 +24,11 @@ public class Output {
             List<Drive> completedDrives = state.getCompletedDrives();
 
             if (completedDrives != null && completedDrives.size() != 0) {
-                sb.append(i);
+                sb.append(completedDrives.size());
                 for (Drive drive : completedDrives) {
                     sb.append(" ");
                     sb.append(drive.getNumberDrive());
                 }
-                sb.append(completedDrives.size());
                 sb.append("\n");
             }
         }

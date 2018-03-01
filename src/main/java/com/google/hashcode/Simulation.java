@@ -1,15 +1,16 @@
 package com.google.hashcode;
 
-import java.util.HashSet;
+import com.google.hashcode.data.Output;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Andrey on 01.03.2018.
  */
 public class Simulation {
 
-    Set<VehicleState> vehicles = new HashSet<>();
+    List<VehicleState> vehicles = new ArrayList<>();
     Integer numSteps;
     Dispatcher dispatcher;
     static int step;
@@ -26,8 +27,15 @@ public class Simulation {
 
     public void run() {
         for (step = 0; step < numSteps; step++) {
-            vehicles.forEach(VehicleState::move);
+            try {
+                vehicles.forEach(VehicleState::move);
+            } catch (Exception e) {
+                break;
+            }
+
         }
+        String string = new Output(this.vehicles).toString();
+        System.out.println(string);
     }
 
     public static Integer getCurrentStep() {

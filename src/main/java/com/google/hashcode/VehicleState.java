@@ -13,6 +13,7 @@ public class VehicleState {
     private static final Pair<Integer, Integer> STARTING_POINT = Pair.of(0, 0);
 
     Pair<Integer, Integer> curDst;
+    Pair<Integer, Integer> curPos;
     Integer distToCurDst;
     List<Drive> completedDrives = new ArrayList<>();
     private Drive curDrive;
@@ -22,7 +23,7 @@ public class VehicleState {
     public VehicleState(Dispatcher dispatcher) {
         this.dispatcher = dispatcher;
         distToCurDst = 1;
-        curDst = STARTING_POINT;
+        curPos = curDst = STARTING_POINT;
         nextDrive = dispatcher.getNewRide(this);
     }
 
@@ -59,10 +60,15 @@ public class VehicleState {
             } else {
                 completedDrives.add(curDrive);
                 curDrive = null;
+                this.curPos = curPos;
                 nextDrive = dispatcher.getNewRide(this);
                 curDst = nextDrive.getSrc();
                 distToCurDst = Distance.calculate(curPos, curDst);
             }
         }
+    }
+
+    public Pair<Integer, Integer> getCurrentPos() {
+        return this.curPos;
     }
 }

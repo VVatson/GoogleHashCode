@@ -1,7 +1,7 @@
 package com.google.hashcode;
 
 import com.google.hashcode.data.InputData;
-import com.google.hashcode.data.OutputData;
+import com.google.hashcode.data.Output;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.BufferedReader;
@@ -10,9 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Andrey on 01.03.2018.
@@ -81,7 +79,7 @@ public class FileHandler {
         }
     }
 
-    public static void write(final String fileName, final OutputData output) {
+    public static void write(final String fileName, final Output output) {
         BufferedWriter bw = null;
         FileWriter fw = null;
 
