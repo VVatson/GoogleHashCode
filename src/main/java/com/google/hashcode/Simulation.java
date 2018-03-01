@@ -1,6 +1,7 @@
 package com.google.hashcode;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -9,9 +10,19 @@ import java.util.Set;
 public class Simulation {
 
     Set<VehicleState> vehicles = new HashSet<>();
-    Integer curStep;
+    Integer numSteps;
+    Dispatcher dispatcher;
 
-    public Simulation(Integer numVehicles, Integer numSteps) {
-        
+    public Simulation(Integer numVehicles, Integer numSteps, List<Drive> drivesToServe) {
+        for (int i = 0; i < numVehicles; i++) {
+            vehicles.add(new VehicleState(dispatcher));
+        }
+        this.numSteps = numSteps;
+    }
+
+    public void run() {
+        for (int i = 0; i < numSteps; i++) {
+            vehicles.forEach(VehicleState::move);
+        }
     }
 }
