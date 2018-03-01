@@ -17,4 +17,20 @@ public class Drive {
         this.earliestStart = earliestStart;
         this.latestArrival = latestArrival;
     }
+
+    public Pair<Integer, Integer> getSrc() {
+        return src;
+    }
+
+    public Pair<Integer, Integer> getDst() {
+        return dst;
+    }
+
+    public Integer getEarliestStart() {
+        return earliestStart;
+    }
+
+    public Integer getLatestArrival() {
+        return latestArrival;
+    }
 }
