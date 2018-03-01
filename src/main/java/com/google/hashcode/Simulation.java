@@ -12,6 +12,7 @@ public class Simulation {
     Set<VehicleState> vehicles = new HashSet<>();
     Integer numSteps;
     Dispatcher dispatcher;
+    static int step;
 
     public Simulation(Integer numVehicles, Integer numSteps, List<Drive> drivesToServe) {
 
@@ -24,12 +25,12 @@ public class Simulation {
     }
 
     public void run() {
-        for (int i = 0; i < numSteps; i++) {
+        for (int step = 0; step < numSteps; step++) {
             vehicles.forEach(VehicleState::move);
         }
     }
 
     public static Integer getCurrentStep() {
-        return null;
+        return step;
     }
 }
