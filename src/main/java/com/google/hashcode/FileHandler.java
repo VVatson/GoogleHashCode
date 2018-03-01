@@ -9,7 +9,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,7 +30,7 @@ public class FileHandler {
         final int numberRides;
         final int bonus;
         final int numberSimulationSteps;
-        final Set<Drive> rides = new HashSet<>();
+        final List<Drive> rides = new ArrayList<>();
 
         try {
             fr = new FileReader(INPUT_DIR + fileName);
@@ -43,7 +45,7 @@ public class FileHandler {
             bonus = Integer.parseInt(split[4]);
             numberSimulationSteps = Integer.parseInt(split[5]);
 
-            for (int i = 0; i < numberRows; i++) {
+            for (int numberDrive = 0; numberDrive < numberRows; numberDrive++) {
                 sCurrentLine = br.readLine();
                 String[] splitRide = sCurrentLine.split(" ");
                 int xStart = Integer.parseInt(splitRide[0]);
@@ -55,7 +57,7 @@ public class FileHandler {
                 rides.add(new Drive(
                         Pair.of(xStart, yStart),
                         Pair.of(xFinish, yFinish),
-                        earlyLimitStart, latestArrival)
+                        earlyLimitStart, latestArrival, numberDrive)
                 );
             }
 

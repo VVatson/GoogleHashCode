@@ -2,6 +2,7 @@ package com.google.hashcode.data;
 
 import com.google.hashcode.Drive;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,7 +15,7 @@ public class InputData {
     private final int numberRides;
     private final int bonus;
     private final int numberSimulationSteps;
-    private final Set<Drive> rides;
+    private final List<Drive> rides;
 
     public int getNumberRows() {
         return numberRows;
@@ -40,14 +41,14 @@ public class InputData {
         return numberSimulationSteps;
     }
 
-    public Set<Drive> getRides() {
+    public List<Drive> getRides() {
         return rides;
     }
 
     public InputData(int numberRows, int numberColumns,
                      int numberVehicles, int numberRides,
                      int bonus, int numberSimulationSteps,
-                     Set<Drive> rides) {
+                     List<Drive> rides) {
         this.numberRows = numberRows;
         this.numberColumns = numberColumns;
         this.numberVehicles = numberVehicles;
