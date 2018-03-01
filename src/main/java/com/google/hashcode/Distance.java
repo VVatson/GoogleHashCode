@@ -7,6 +7,7 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class Distance {
     public static Integer calculate(Pair<Integer, Integer> startingPoint, Pair<Integer, Integer> curDst) {
-        return null;
+        return Math.abs(startingPoint.getLeft() - curDst.getLeft()) +
+                Math.abs(startingPoint.getRight() - curDst.getRight());
     }
 }
