@@ -25,7 +25,7 @@ public class Simulation {
     }
 
     public void run() {
-        for (int step = 0; step < numSteps; step++) {
+        for (step = 0; step < numSteps; step++) {
             vehicles.forEach(VehicleState::move);
         }
     }
