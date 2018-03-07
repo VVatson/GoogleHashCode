@@ -25,7 +25,7 @@ public class Simulation {
         this.numSteps = numSteps;
     }
 
-    public void run() {
+    public String run() {
         for (step = 0; step < numSteps; step++) {
             try {
                 vehicles.forEach(VehicleState::move);
@@ -34,8 +34,7 @@ public class Simulation {
             }
 
         }
-        String string = new Output(this.vehicles).toString();
-        System.out.println(string);
+        return new Output(this.vehicles).toString();
     }
 
     public static Integer getCurrentStep() {

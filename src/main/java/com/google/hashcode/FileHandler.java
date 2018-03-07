@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class FileHandler {
     public static final String INPUT_DIR = "src/main/java/com/google/hashcode/input/";
+    public static final String OUTPUT_DIR = "src/main/java/com/google/hashcode/output/";
 
     public static InputData read(final String fileName) {
         BufferedReader br = null;
@@ -43,7 +44,7 @@ public class FileHandler {
             bonus = Integer.parseInt(split[4]);
             numberSimulationSteps = Integer.parseInt(split[5]);
 
-            for (int numberDrive = 0; numberDrive < numberRows; numberDrive++) {
+            for (int numberDrive = 0; numberDrive < numberRides; numberDrive++) {
                 sCurrentLine = br.readLine();
                 String[] splitRide = sCurrentLine.split(" ");
                 int xStart = Integer.parseInt(splitRide[0]);
@@ -79,15 +80,15 @@ public class FileHandler {
         }
     }
 
-    public static void write(final String fileName, final Output output) {
+    public static void write(final String fileName, final String output) {
         BufferedWriter bw = null;
         FileWriter fw = null;
 
         try {
-            fw = new FileWriter(fileName, true);
+            fw = new FileWriter(OUTPUT_DIR + fileName, false);
             bw = new BufferedWriter(fw);
 
-            bw.append(output.toString());
+            bw.append(output);
 
         } catch (IOException e) {
             e.printStackTrace();
