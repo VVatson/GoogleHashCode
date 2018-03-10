@@ -80,7 +80,7 @@ public class FileHandler {
         }
     }
 
-    public static void write(final String fileName, final String output) {
+    public static void write(final String fileName, final Output output) {
         BufferedWriter bw = null;
         FileWriter fw = null;
 
@@ -88,7 +88,7 @@ public class FileHandler {
             fw = new FileWriter(OUTPUT_DIR + fileName, false);
             bw = new BufferedWriter(fw);
 
-            bw.append(output);
+            bw.append(output.toString());
 
         } catch (IOException e) {
             e.printStackTrace();

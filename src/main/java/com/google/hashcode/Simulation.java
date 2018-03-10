@@ -1,5 +1,6 @@
 package com.google.hashcode;
 
+import com.google.hashcode.data.InputData;
 import com.google.hashcode.data.Output;
 
 import java.util.ArrayList;
@@ -15,17 +16,16 @@ public class Simulation {
     Dispatcher dispatcher;
     static int step;
 
-    public Simulation(Integer numVehicles, Integer numSteps, List<Drive> drivesToServe) {
+    public Simulation(InputData inputData) {
+        dispatcher = new DefaultDispatcher(inputData.getRides());
 
-        dispatcher = new DefaultDispatcher(drivesToServe);
-
-        for (int i = 0; i < numVehicles; i++) {
+        for (int i = 0; i < inputData.getNumberVehicles(); i++) {
             vehicles.add(new VehicleState(dispatcher));
         }
-        this.numSteps = numSteps;
+        this.numSteps = inputData.getNumberSimulationSteps();
     }
 
-    public String run() {
+    public Output run() {
         for (step = 0; step < numSteps; step++) {
             try {
                 vehicles.forEach(VehicleState::move);
@@ -34,7 +34,7 @@ public class Simulation {
             }
 
         }
-        return new Output(this.vehicles).toString();
+        return Output.fromVehicles(this.vehicles);
     }
 
     public static Integer getCurrentStep() {
