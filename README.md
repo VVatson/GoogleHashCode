@@ -1,4 +1,5 @@
-## Google HashCode 2018
+Google # HashCode 2018
+
 ### Qualification round
 
-### SNAILS TEAM'S SOLUTION
+Snails team`s solution
