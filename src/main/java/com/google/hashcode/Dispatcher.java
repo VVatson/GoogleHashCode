@@ -1,9 +1,12 @@
 package com.google.hashcode;
 
+import com.google.hashcode.objects.Drive;
+import com.google.hashcode.objects.Vehicle;
+
 /**
- * Created by Andrey on 01.03.2018.
+ * Dispatcher to find the optimal ride for a vehicle.
  */
 public interface Dispatcher {
 
-    Drive getNewRide(VehicleState vehicleState);
+    Drive getNewRide(Vehicle vehicle);
 }

@@ -1,43 +1,39 @@
 package com.google.hashcode;
 
-import com.google.hashcode.data.InputData;
+import com.google.hashcode.data.Input;
 import com.google.hashcode.data.Output;
+import com.google.hashcode.objects.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Andrey on 01.03.2018.
+ * Simulation object is designed to move each vehicle at each step.
  */
 public class Simulation {
 
-    List<VehicleState> vehicles = new ArrayList<>();
-    Integer numSteps;
-    Dispatcher dispatcher;
-    static int step;
+    private List<Vehicle> vehicles = new ArrayList<>();
+    private Integer numSteps;
+    private Dispatcher dispatcher;
+    private int step;
 
-    public Simulation(InputData inputData) {
-        dispatcher = new DefaultDispatcher(inputData.getRides());
+    public Simulation(final Input input) {
+        dispatcher = new DefaultDispatcher(input.getRides(), this);
 
-        for (int i = 0; i < inputData.getNumberVehicles(); i++) {
-            vehicles.add(new VehicleState(dispatcher));
+        for (int i = 0; i < input.getNumberVehicles(); i++) {
+            vehicles.add(new Vehicle(dispatcher));
         }
-        this.numSteps = inputData.getNumberSimulationSteps();
+        this.numSteps = input.getNumberSimulationSteps();
     }
 
     public Output run() {
         for (step = 0; step < numSteps; step++) {
-            try {
-                vehicles.forEach(VehicleState::move);
-            } catch (Exception e) {
-                break;
-            }
-
+            vehicles.forEach(Vehicle::move);
         }
         return Output.fromVehicles(this.vehicles);
     }
 
-    public static Integer getCurrentStep() {
+    public Integer getCurrentStep() {
         return step;
     }
 }

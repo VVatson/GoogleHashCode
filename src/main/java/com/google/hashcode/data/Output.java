@@ -1,14 +1,13 @@
 package com.google.hashcode.data;
 
-import com.google.hashcode.Drive;
-import com.google.hashcode.VehicleState;
+import com.google.hashcode.objects.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Schedule of the rides.
+ * Output data that contains a schedule of the rides.
  */
 public class Output {
 
@@ -18,10 +17,11 @@ public class Output {
         this.schedule = schedule;
     }
 
-    public static Output fromVehicles(List<VehicleState> vehicleStates) {
+    public static Output fromVehicles(List<Vehicle> vehicles) {
         List<List<Integer>> schedule = new ArrayList<>();
-        for (VehicleState vehicle : vehicleStates) {
+        for (Vehicle vehicle : vehicles) {
             schedule.add(vehicle.getCompletedDrives().stream()
+                    .sequential()
                     .map(drive -> drive.getNumberDrive())
                     .collect(Collectors.toList()));
         }
@@ -38,6 +38,7 @@ public class Output {
             sb.append(" ");
 
             String ridesGapSeparated = rides.stream()
+                    .sequential()
                     .map(String::valueOf)
                     .collect(Collectors.joining(" "));
             sb.append(ridesGapSeparated);

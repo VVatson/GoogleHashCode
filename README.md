@@ -1,2 +1,4 @@
-PIZZA PROJECT
-by Google 2017
+### Google HashCode 2018
+## Qualification round
+
+## SNAILS TEAM'S SOLUTION

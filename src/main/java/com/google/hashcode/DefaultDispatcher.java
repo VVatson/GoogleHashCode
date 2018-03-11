@@ -1,42 +1,86 @@
 package com.google.hashcode;
 
+import com.google.hashcode.objects.Drive;
+import com.google.hashcode.objects.Vehicle;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
- * Created by Andrey on 01.03.2018.
+ * Dispatcher implementation.
+ * To distribute rides to vehicles.
  */
 public class DefaultDispatcher implements Dispatcher {
 
-    List<Drive> drivesToServe;
+    private final List<Drive> drivesToServe;
+    private final Simulation simulation;
 
-
-    public DefaultDispatcher(List<Drive> drivesToServe) {
+    public DefaultDispatcher(final List<Drive> drivesToServe, final Simulation simulation) {
         this.drivesToServe = drivesToServe;
+        this.simulation = simulation;
     }
 
     @Override
-    public Drive getNewRide(VehicleState vehicleState) {
-
-        List<Drive> futureDrivers = drivesToServe.stream().filter(drive -> drive.getEarliestStart().compareTo(Simulation.getCurrentStep()) >= 0).collect(Collectors.toList());
-        List<Drive> feasibleDrives = futureDrivers.stream().filter(drive -> Simulation.getCurrentStep() + Distance.calculate(vehicleState.getCurrentPos(), drive.getSrc()) + Distance.calculate(drive.getSrc(), drive.getDst()) < drive.getLatestArrival()).collect(Collectors.toList());
-        Drive chosen = chooseDrive(vehicleState, feasibleDrives);
+    public Drive getNewRide(final Vehicle vehicle) {
+        Pair<Integer, Integer> curPos = vehicle.getCurrentPos();
+        List<Drive> feasibleDrives = drivesToServe.stream()
+                .filter(drive -> simulation.getCurrentStep() +
+                        Distance.calculate(curPos, drive.getSrc()) +
+                        Distance.calculate(drive.getSrc(), drive.getDst()) < drive.getLatestArrival())
+                .collect(Collectors.toList());
+        Drive chosen = chooseDrive(vehicle, feasibleDrives);
         this.drivesToServe.remove(chosen);
         return chosen;
     }
 
-    private Drive chooseDrive(VehicleState vehicle, List<Drive> drives) {
+    private Drive chooseDrive(final Vehicle vehicle, final List<Drive> drives) {
+        Integer expensiveDrive = Integer.MIN_VALUE;
+        Drive optimalDrive = null;
 
-        Integer nearest = Integer.MAX_VALUE;
-        Drive nearestDrive = null;
+        // get 10 nearest rides
+        TreeSet<Drive> sortedDrives = new TreeSet(new DriveComparator(vehicle));
+        sortedDrives.addAll(drives);
+        Integer size = Math.min(10, sortedDrives.size());
+        List<Drive> nearestDrives = new ArrayList<>();
+        for(int i = 0; i < size; i++) {
+            nearestDrives.add(sortedDrives.pollFirst());
+        }
 
-        for (Drive drive : drives) {
-            Integer timeToStart = Math.max(drive.earliestStart - Simulation.getCurrentStep(), Distance.calculate(vehicle.getCurrentPos(), drive.getSrc()));
-            if (nearest > timeToStart) {
-                nearest = timeToStart;
-                nearestDrive = drive;
+        // get a more expensive ride from 10 rides
+        for (Drive drive : nearestDrives) {
+            Integer cost = Distance.calculate(drive);
+            if (cost > expensiveDrive) {
+                expensiveDrive = cost;
+                optimalDrive = drive;
             }
         }
-        return nearestDrive;
+        return optimalDrive;
+    }
+
+    class DriveComparator implements Comparator<Drive>{
+
+        private Vehicle vehicle;
+
+        public DriveComparator(final Vehicle vehicle) {
+            this.vehicle = vehicle;
+        }
+
+        @Override
+        public int compare(final Drive drive1, final Drive drive2) {
+            return Integer.compare(
+                    Math.max(
+                            drive1.getEarliestStart() - simulation.getCurrentStep(),
+                            Distance.calculate(vehicle.getCurrentPos(), drive1.getSrc())
+                    ),
+                    Math.max(
+                            drive2.getEarliestStart() - simulation.getCurrentStep(),
+                            Distance.calculate(vehicle.getCurrentPos(), drive2.getSrc())
+                    )
+            );
+        }
     }
 }

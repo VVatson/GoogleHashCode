@@ -1,7 +1,8 @@
 package com.google.hashcode;
 
-import com.google.hashcode.data.InputData;
+import com.google.hashcode.data.Input;
 import com.google.hashcode.data.Output;
+import com.google.hashcode.objects.Drive;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.BufferedReader;
@@ -13,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Andrey on 01.03.2018.
+ * FileHandler is designed to interact with files.
  */
 public class FileHandler {
-    public static final String INPUT_DIR = "src/main/java/com/google/hashcode/input/";
-    public static final String OUTPUT_DIR = "src/main/java/com/google/hashcode/output/";
+    public static final String INPUT_DIR = "src/main/resources/input/";
+    public static final String OUTPUT_DIR = "src/main/resources/output/";
 
-    public static InputData read(final String fileName) {
+    public static Input read(final String fileName) {
         BufferedReader br = null;
         FileReader fr = null;
 
@@ -60,7 +61,7 @@ public class FileHandler {
                 );
             }
 
-            return new InputData(
+            return new Input(
                     numberRows, numberColumns,
                     numberVehicles, numberRides,
                     bonus, numberSimulationSteps,

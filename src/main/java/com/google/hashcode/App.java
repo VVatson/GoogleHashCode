@@ -1,8 +1,12 @@
 package com.google.hashcode;
 
-import com.google.hashcode.data.InputData;
+import com.google.hashcode.data.Input;
 import com.google.hashcode.data.Output;
 
+/**
+ * Main class.
+ * Processes all files.
+ */
 public class App {
     private final static String [] FILES = {
             "a_example.in",
@@ -14,9 +18,9 @@ public class App {
 
     public static void main(String[] args) {
         for (String file : FILES) {
-            InputData inputData = FileHandler.read(file);
+            Input input = FileHandler.read(file);
 
-            Simulation simulation = new Simulation(inputData);
+            Simulation simulation = new Simulation(input);
             Output output = simulation.run();
 
             FileHandler.write(file.replace(".in", ".out"), output);

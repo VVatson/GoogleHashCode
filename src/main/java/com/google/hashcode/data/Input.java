@@ -1,14 +1,13 @@
 package com.google.hashcode.data;
 
-import com.google.hashcode.Drive;
+import com.google.hashcode.objects.Drive;
 
 import java.util.List;
-import java.util.Set;
 
 /**
- * Created by Andrey on 01.03.2018.
+ * Input data.
  */
-public class InputData {
+public class Input {
     private final int numberRows;
     private final int numberColumns;
     private final int numberVehicles;
@@ -17,24 +16,8 @@ public class InputData {
     private final int numberSimulationSteps;
     private final List<Drive> rides;
 
-    public int getNumberRows() {
-        return numberRows;
-    }
-
-    public int getNumberColumns() {
-        return numberColumns;
-    }
-
     public int getNumberVehicles() {
         return numberVehicles;
-    }
-
-    public int getNumberRides() {
-        return numberRides;
-    }
-
-    public int getBonus() {
-        return bonus;
     }
 
     public int getNumberSimulationSteps() {
@@ -45,10 +28,10 @@ public class InputData {
         return rides;
     }
 
-    public InputData(int numberRows, int numberColumns,
-                     int numberVehicles, int numberRides,
-                     int bonus, int numberSimulationSteps,
-                     List<Drive> rides) {
+    public Input(final int numberRows, final int numberColumns,
+                 final int numberVehicles, final int numberRides,
+                 final int bonus, final int numberSimulationSteps,
+                 final List<Drive> rides) {
         this.numberRows = numberRows;
         this.numberColumns = numberColumns;
         this.numberVehicles = numberVehicles;
