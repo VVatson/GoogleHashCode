@@ -16,18 +16,14 @@ public class Library {
     public List<Book> books;
     private List<Book> sortedBooks;
 
-    private Dispatcher dispatcher;
-    private VehicleState state;
-
-    public Library(Dispatcher dispatcher) {
-        this.state = INITIAL_STATE;
-        this.dispatcher = dispatcher;
+    public Library(Integer id, Integer signupTime, Integer sendCount, List<Book> books) {
+        this.id = id;
+        this.signupTime = signupTime;
+        this.sendCount = sendCount;
+        this.books = books;
         this.sortedBooks = new LinkedList<>();
         sortedBooks.addAll(books);
         sortedBooks.sort(new BookComparator());
-    }
-
-    public static void chooseBooksToShip(Library library) {
     }
 
     public int getValue(int rest_day_to_deadline) {
