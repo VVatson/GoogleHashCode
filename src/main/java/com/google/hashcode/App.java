@@ -21,8 +21,8 @@ public class App {
         for (String file : FILES) {
             Input input = FileHandler.read(file);
 
-            Process process = new Process(input);
-            Output output = process.run();
+            Simulation simulation = new Simulation(input);
+            Output output = simulation.run();
 
             FileHandler.write(file, output);
         }
