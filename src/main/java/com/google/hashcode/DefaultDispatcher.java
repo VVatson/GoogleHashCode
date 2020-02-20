@@ -17,18 +17,18 @@ import java.util.stream.Collectors;
 public class DefaultDispatcher implements Dispatcher {
 
     private final List<Drive> drivesToServe;
-    private final Process process;
+    private final Simulation simulation;
 
-    public DefaultDispatcher(final List<Drive> drivesToServe, final Process process) {
+    public DefaultDispatcher(final List<Drive> drivesToServe, final Simulation simulation) {
         this.drivesToServe = drivesToServe;
-        this.process = process;
+        this.simulation = simulation;
     }
 
     @Override
     public Drive getNewRide(final Vehicle vehicle) {
         Pair<Integer, Integer> curPos = vehicle.getCurrentPos();
         List<Drive> feasibleDrives = drivesToServe.stream()
-                .filter(drive -> process.getCurrentStep() +
+                .filter(drive -> simulation.getCurrentStep() +
                         Distance.calculate(curPos, drive.getSrc()) +
                         Distance.calculate(drive.getSrc(), drive.getDst()) < drive.getLatestArrival())
                 .collect(Collectors.toList());
@@ -73,11 +73,11 @@ public class DefaultDispatcher implements Dispatcher {
         public int compare(final Drive drive1, final Drive drive2) {
             return Integer.compare(
                     Math.max(
-                            drive1.getEarliestStart() - process.getCurrentStep(),
+                            drive1.getEarliestStart() - simulation.getCurrentStep(),
                             Distance.calculate(vehicle.getCurrentPos(), drive1.getSrc())
                     ),
                     Math.max(
-                            drive2.getEarliestStart() - process.getCurrentStep(),
+                            drive2.getEarliestStart() - simulation.getCurrentStep(),
                             Distance.calculate(vehicle.getCurrentPos(), drive2.getSrc())
                     )
             );
