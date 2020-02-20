@@ -1,6 +1,7 @@
 package com.google.hashcode.data;
 
-import com.google.hashcode.objects.Drive;
+import com.google.hashcode.objects.Book;
+import com.google.hashcode.objects.Library;
 
 import java.util.List;
 
@@ -8,36 +9,18 @@ import java.util.List;
  * Input data.
  */
 public class Input {
-    private final int numberRows;
-    private final int numberColumns;
-    private final int numberVehicles;
-    private final int numberRides;
-    private final int bonus;
-    private final int numberSimulationSteps;
-    private final List<Drive> rides;
+    public final int bookNum;
+    public final int libraryNum;
+    public final int daysNum;
 
-    public int getNumberVehicles() {
-        return numberVehicles;
-    }
+    public final List<Book> books;
+    public final List<Library> libraries;
 
-    public int getNumberSimulationSteps() {
-        return numberSimulationSteps;
-    }
-
-    public List<Drive> getRides() {
-        return rides;
-    }
-
-    public Input(final int numberRows, final int numberColumns,
-                 final int numberVehicles, final int numberRides,
-                 final int bonus, final int numberSimulationSteps,
-                 final List<Drive> rides) {
-        this.numberRows = numberRows;
-        this.numberColumns = numberColumns;
-        this.numberVehicles = numberVehicles;
-        this.numberRides = numberRides;
-        this.bonus = bonus;
-        this.numberSimulationSteps = numberSimulationSteps;
-        this.rides = rides;
+    public Input(int bookNum, int libraryNum, int daysNum, List<Book> books, List<Library> libraries) {
+        this.bookNum = bookNum;
+        this.libraryNum = libraryNum;
+        this.daysNum = daysNum;
+        this.books = books;
+        this.libraries = libraries;
     }
 }
