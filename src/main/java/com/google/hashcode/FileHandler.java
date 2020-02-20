@@ -86,6 +86,7 @@ public abstract class FileHandler {
     }
 
     public static void write(final String fileName, final Output output) {
+        Output.LibrarySet[] sets = output.librarySets;
         BufferedWriter bw = null;
         FileWriter fw = null;
 
@@ -93,8 +94,20 @@ public abstract class FileHandler {
             fw = new FileWriter(OUTPUT_DIR + fileName, false);
             bw = new BufferedWriter(fw);
 
-            bw.append(output.toString());
+            bw.write(Integer.toString(sets.length));
+            bw.newLine();
 
+            for (Output.LibrarySet set : sets) {
+                bw.write(Integer.toString(set.library.id) + ' ' + Integer.toString(set.books.length));
+                bw.newLine();
+                for (int i = 0; i < set.books.length; ++i) {
+                    bw.write(Integer.toString(set.books[i].id));
+                    if (i < set.books.length - 1) {
+                        bw.write(' ');
+                    }
+                }
+                bw.newLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
