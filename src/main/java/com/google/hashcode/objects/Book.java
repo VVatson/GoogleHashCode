@@ -8,4 +8,9 @@ public class Book {
         this.id = id;
         this.score = score;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" + "id=" + id + ", score=" + score + '}';
+    }
 }
