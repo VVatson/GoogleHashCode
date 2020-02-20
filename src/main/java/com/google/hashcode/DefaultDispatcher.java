@@ -1,12 +1,16 @@
 package com.google.hashcode;
 
+import com.google.hashcode.objects.Book;
 import com.google.hashcode.objects.Drive;
+import com.google.hashcode.objects.Library;
 import com.google.hashcode.objects.Vehicle;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -16,12 +20,14 @@ import java.util.stream.Collectors;
  */
 public class DefaultDispatcher implements Dispatcher {
 
-    private final List<Drive> drivesToServe;
+    private final List<Library> libraries;
+    private final Set<Book> alreadyShippedBooks;
     private final Simulation simulation;
 
-    public DefaultDispatcher(final List<Drive> drivesToServe, final Simulation simulation) {
-        this.drivesToServe = drivesToServe;
+    public DefaultDispatcher(List<Library> libraries, final Simulation simulation) {
+        this.libraries = libraries;
         this.simulation = simulation;
+        this.alreadyShippedBooks = new HashSet<>();
     }
 
     @Override
@@ -61,24 +67,24 @@ public class DefaultDispatcher implements Dispatcher {
         return optimalDrive;
     }
 
-    class DriveComparator implements Comparator<Drive>{
+    class LibraryComparator implements Comparator<Library>{
 
-        private Vehicle vehicle;
+        private Library library;
 
-        public DriveComparator(final Vehicle vehicle) {
-            this.vehicle = vehicle;
+        public LibraryComparator(Library library) {
+            this.library = library;
         }
 
         @Override
-        public int compare(final Drive drive1, final Drive drive2) {
+        public int compare(Library library1, Library library2) {
             return Integer.compare(
                     Math.max(
-                            drive1.getEarliestStart() - simulation.getCurrentStep(),
-                            Distance.calculate(vehicle.getCurrentPos(), drive1.getSrc())
+                            library1.getEarliestStart() - simulation.getCurrentStep(),
+                            Distance.calculate(vehicle.getCurrentPos(), library2.getSrc())
                     ),
                     Math.max(
-                            drive2.getEarliestStart() - simulation.getCurrentStep(),
-                            Distance.calculate(vehicle.getCurrentPos(), drive2.getSrc())
+                            library2.getEarliestStart() - simulation.getCurrentStep(),
+                            Distance.calculate(vehicle.getCurrentPos(), library2.getSrc())
                     )
             );
         }

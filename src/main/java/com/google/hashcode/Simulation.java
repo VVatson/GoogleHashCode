@@ -2,6 +2,7 @@ package com.google.hashcode;
 
 import com.google.hashcode.data.Input;
 import com.google.hashcode.data.Output;
+import com.google.hashcode.objects.Library;
 import com.google.hashcode.objects.Vehicle;
 
 import java.util.ArrayList;
@@ -12,23 +13,24 @@ import java.util.List;
  */
 public class Simulation {
 
-    private List<Vehicle> vehicles = new ArrayList<>();
+    private List<Library> libraries = new ArrayList<>();
     private Integer numSteps;
     private Dispatcher dispatcher;
     private int step;
 
     public Simulation(final Input input) {
-        dispatcher = new DefaultDispatcher(input.getRides(), this);
+        dispatcher = new DefaultDispatcher(input.libraries, this);
 
-        for (int i = 0; i < input.getNumberVehicles(); i++) {
-            vehicles.add(new Vehicle(dispatcher));
+        for (int i = 0; i < input.libraryNum; i++) {
+            libraries.add(new Library(dispatcher));
         }
-        this.numSteps = input.getNumberSimulationSteps();
+        this.numSteps = input.daysNum;
     }
 
     public Output run() {
         for (step = 0; step < numSteps; step++) {
-            vehicles.forEach(Vehicle::move);
+
+            libraries.forEach(Library::chooseBooksToShip);
         }
         return Output.fromVehicles(this.vehicles);
     }
