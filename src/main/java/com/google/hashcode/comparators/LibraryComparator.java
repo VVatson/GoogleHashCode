@@ -1,10 +1,10 @@
 package com.google.hashcode.comparators;
 
-import com.google.hashcode.objects.Library;
+import com.google.hashcode.objects.LibraryProcess;
 
 import java.util.Comparator;
 
-public class LibraryComparator implements Comparator<Library> {
+public class LibraryComparator implements Comparator<LibraryProcess> {
 
     private final int day_to_deadline;
 
@@ -13,7 +13,7 @@ public class LibraryComparator implements Comparator<Library> {
     }
 
     @Override
-    public int compare(Library o1, Library o2) {
-        return o1.getValue(day_to_deadline) - o2.getValue(day_to_deadline);
+    public int compare(LibraryProcess o1, LibraryProcess o2) {
+        return o1.library.getValue(day_to_deadline) - o2.library.getValue(day_to_deadline);
     }
 }

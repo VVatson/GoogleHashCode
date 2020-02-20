@@ -1,20 +1,17 @@
 package com.google.hashcode.objects;
 
-import static com.google.hashcode.objects.VehicleState.GO_TO_DESTINATION;
-
 import com.google.hashcode.Dispatcher;
-import com.google.hashcode.Distance;
 
 import java.util.List;
 
 public class LibraryProcess {
-    public Integer remainingTimeToBeSignedUp;
+    public Integer startStep;
 
     public Library library;
     private Dispatcher dispatcher;
     private LibraryState state;
 
-    private List<Book> shippedBooks;
+    public List<Book> shippedBooks;
 
     public List<Book> unshippedBooks;
 
@@ -23,7 +20,7 @@ public class LibraryProcess {
         this.state = LibraryState.WAITING_FOR_SIGNUP;
         this.dispatcher = dispatcher;
 
-        this.remainingTimeToBeSignedUp = library.signupTime;
+        this.startStep =  Integer.MAX_VALUE;
     }
 
     public void process(int step) {
@@ -33,12 +30,15 @@ public class LibraryProcess {
             break;
 
         case WAITING_FOR_SIGNUP:
+            boolean yes = dispatcher.isCurrentLibrary(this, step);
+            if (yes) {
+                startStep = step;
+            }
 
             break;
 
         case SIGNING_UP:
-            remainingTimeToBeSignedUp--;
-            if (remainingTimeToBeSignedUp == 0) {
+            if (isRegisteredInThisStep(step)) {
                 state = LibraryState.SHIPPING;
             }
             break;
@@ -58,5 +58,9 @@ public class LibraryProcess {
         default:
             throw new RuntimeException("UNKNOWN STATE!");
         }
+    }
+
+    public boolean isRegisteredInThisStep(int currentStep) {
+        return currentStep - startStep == library.signupTime;
     }
 }

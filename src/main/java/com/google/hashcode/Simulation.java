@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Simulation {
 
-    private List<LibraryProcess> libraryProcesses = new ArrayList<>();
+    public List<LibraryProcess> libraryProcesses = new ArrayList<>();
     private Integer daysNum;
     private Dispatcher dispatcher;
     private int step;
@@ -33,9 +33,5 @@ public class Simulation {
             libraryProcesses.forEach(libraryProcess -> libraryProcess.process(step));
         }
         return Output.fromVehicles(this.vehicles);
-    }
-
-    public Integer getCurrentStep() {
-        return step;
     }
 }

@@ -11,4 +11,6 @@ import java.util.List;
 public interface Dispatcher {
 
     List<Book> getBooksToShip(LibraryProcess libraryProcess);
+
+    boolean isCurrentLibrary(LibraryProcess libraryProcess, int step);
 }
