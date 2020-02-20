@@ -9,21 +9,22 @@ import com.google.hashcode.data.Output;
  */
 public class App {
     private final static String [] FILES = {
-            "a_example.in",
-            "b_should_be_easy.in",
-            "c_no_hurry.in",
-            "d_metropolis.in",
-            "e_high_bonus.in"
+            "a_example.txt",
+            "b_read_on.txt",
+            "c_incunabula.txt",
+            "d_tough_choices.txt",
+            "e_so_many_books.txt",
+            "f_libraries_of_the_world.txt"
     };
 
     public static void main(String[] args) {
         for (String file : FILES) {
             Input input = FileHandler.read(file);
 
-            Simulation simulation = new Simulation(input);
-            Output output = simulation.run();
+            Process process = new Process(input);
+            Output output = process.run();
 
-            FileHandler.write(file.replace(".in", ".out"), output);
+            FileHandler.write(file, output);
         }
     }
 }

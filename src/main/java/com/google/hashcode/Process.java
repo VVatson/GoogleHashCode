@@ -10,14 +10,14 @@ import java.util.List;
 /**
  * Simulation object is designed to move each vehicle at each step.
  */
-public class Simulation {
+public class Process {
 
     private List<Vehicle> vehicles = new ArrayList<>();
     private Integer numSteps;
     private Dispatcher dispatcher;
     private int step;
 
-    public Simulation(final Input input) {
+    public Process(final Input input) {
         dispatcher = new DefaultDispatcher(input.getRides(), this);
 
         for (int i = 0; i < input.getNumberVehicles(); i++) {
