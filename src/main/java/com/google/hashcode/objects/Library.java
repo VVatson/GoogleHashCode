@@ -1,11 +1,7 @@
 package com.google.hashcode.objects;
 
-import static com.google.hashcode.objects.VehicleState.INITIAL_STATE;
-
-import com.google.hashcode.Dispatcher;
 import com.google.hashcode.comparators.BookComparator;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
