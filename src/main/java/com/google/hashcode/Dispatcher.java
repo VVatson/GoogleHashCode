@@ -1,12 +1,14 @@
 package com.google.hashcode;
 
-import com.google.hashcode.objects.Drive;
-import com.google.hashcode.objects.Vehicle;
+import com.google.hashcode.objects.Book;
+import com.google.hashcode.objects.LibraryProcess;
+
+import java.util.List;
 
 /**
  * Dispatcher to find the optimal ride for a vehicle.
  */
 public interface Dispatcher {
 
-    Drive getNewRide(Vehicle vehicle);
+    List<Book> getBooksToShip(LibraryProcess libraryProcess);
 }

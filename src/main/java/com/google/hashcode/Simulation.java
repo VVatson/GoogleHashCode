@@ -30,7 +30,7 @@ public class Simulation {
     public Output run() {
         for (step = 0; step < daysNum; step++) {
 
-            libraryProcesses.forEach(LibraryProcess::process);
+            libraryProcesses.forEach(libraryProcess -> libraryProcess.process(step));
         }
         return Output.fromVehicles(this.vehicles);
     }

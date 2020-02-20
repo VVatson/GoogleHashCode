@@ -26,7 +26,7 @@ public class Vehicle {
     public Vehicle(Dispatcher dispatcher) {
         state = INITIAL_STATE;
         this.dispatcher = dispatcher;
-        nextDrive = dispatcher.getNewRide(this);
+        nextDrive = dispatcher.getBooksToShip(this, step);
         if (nextDrive == null) {
             state = DISABLED;
         }
@@ -71,7 +71,7 @@ public class Vehicle {
                 distToCurDst--;
                 if (distToCurDst == 0) {
                     completedDrives.add(curDrive);
-                    nextDrive = dispatcher.getNewRide(this);
+                    nextDrive = dispatcher.getBooksToShip(this, step);
                     if (nextDrive == null) {
                         setState(DISABLED);
                         break;
