@@ -1,5 +1,5 @@
-Google # HashCode 2018
+# Google # HashCode 2020
 
-Qualification round
+#### Online Qualification Round
 
-Snails team`s solution
+#### Snails Team`s Solution
