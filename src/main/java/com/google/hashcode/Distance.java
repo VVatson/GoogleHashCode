@@ -1,6 +1,5 @@
 package com.google.hashcode;
 
-import com.google.hashcode.objects.Drive;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**

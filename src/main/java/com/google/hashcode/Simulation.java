@@ -32,6 +32,6 @@ public class Simulation {
 
             libraryProcesses.forEach(libraryProcess -> libraryProcess.process(step));
         }
-        return Output.fromVehicles(this.vehicles);
+        return null;
     }
 }
