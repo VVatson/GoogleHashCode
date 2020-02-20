@@ -23,4 +23,20 @@ public class Input {
         this.books = books;
         this.libraries = libraries;
     }
+
+    @Override
+    public String toString() {
+        return "Input{"
+                + "bookNum="
+                + bookNum
+                + ", libraryNum="
+                + libraryNum
+                + ", daysNum="
+                + daysNum
+                + ", books="
+                + books
+                + ", libraries="
+                + libraries
+                + '}';
+    }
 }
